@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Eshal... ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; transition: all 0.5s ease; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f0c20;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c20, #150a21, #240b2e);
             color: #fff;
             text-align: center;
             margin: 0;
@@ -17,104 +19,245 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            transition: background 1.5s ease;
+            position: relative;
         }
+        
+        .falling-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .element {
+            position: absolute;
+            font-size: 25px;
+            animation: fall linear infinite;
+            bottom: -50px;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+
         .card {
-            width: 85%;
-            max-width: 380px;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 25px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            z-index: 10;
+            position: relative;
         }
-        .step { display: none; animation: fadeIn 1s ease forwards; }
+        .step { display: none; animation: smoothReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         .step.active { display: block; }
         
         .btn {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
             margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
-            transition: transform 0.2s;
+            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.4);
         }
-        .btn:active { transform: scale(0.95); }
+        .btn:active { transform: scale(0.96); }
         
-        .heart { font-size: 70px; animation: pulse 1.2s infinite; cursor: pointer; }
-        .cake { font-size: 80px; margin: 20px 0; }
+        .heart { font-size: 90px; animation: pulse 1.4s infinite ease-in-out; cursor: pointer; filter: drop-shadow(0 10px 15px rgba(255,65,108,0.5)); }
         
+        /* REALISTIC CSS CAKE DESIGN */
+        .cake-container {
+            position: relative;
+            width: 160px;
+            height: 120px;
+            margin: 40px auto;
+            cursor: pointer;
+        }
+        .cake-body {
+            position: absolute;
+            bottom: 0;
+            width: 160px;
+            height: 90px;
+            background: #4a2c11; /* Chocolate layer */
+            border-radius: 15px 15px 10px 10px;
+            box-shadow: inset 0 5px 0 #ff69b4, 0 10px 15px rgba(0,0,0,0.3); /* Strawberry cream top */
+            border-bottom: 8px solid #331d0a;
+            overflow: hidden;
+        }
+        .cake-cream {
+            position: absolute;
+            top: 20px; width: 100%; height: 10px;
+            background: #fff; /* Vanilla cream layer inside */
+        }
+        /* Candle Graphic */
+        .candle {
+            position: absolute;
+            top: -25px; left: 73px;
+            width: 14px; height: 35px;
+            background: linear-gradient(to right, #e0e0e0, #fff, #e0e0e0);
+            border-radius: 3px;
+        }
+        .flame {
+            position: absolute;
+            top: -15px; left: 2px;
+            width: 10px; height: 18px;
+            background: #ff9800;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff5722;
+            animation: flicker 0.1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1) translateY(-1px); }
+        }
+
+        /* CUT ANIMATION EFFECT */
+        .cake-container.cut .cake-body {
+            background: linear-gradient(90deg, #4a2c11 46%, transparent 46%, transparent 54%, #4a2c11 54%);
+        }
+        .cake-container.cut .cake-cream {
+            background: linear-gradient(90deg, #fff 46%, transparent 46%, transparent 54%, #fff 54%);
+        }
+        .cake-container.cut .flame { display: none; } /* Flame goes out */
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes smoothReveal {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
-        h2 { font-size: 24px; color: #ff416c; margin-bottom: 10px; }
-        p { font-size: 16px; line-height: 1.6; color: #e0e0e0; }
+        h2 { font-size: 26px; color: #ff416c; margin-bottom: 12px; font-weight: 700; }
+        p { font-size: 16px; line-height: 1.7; color: #f0f0f0; }
     </style>
 </head>
 <body>
+
+    <!-- Audio Streams -->
+    <!-- Initial Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+    <!-- Birthday Audio - Triggers exactly on cake cut -->
+    <audio id="birthdayMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Flowers and Balloons Layer -->
+    <div class="falling-container" id="effectsContainer"></div>
 
     <div class="card">
         <!-- Step 1: The Heart Touch -->
         <div id="step1" class="step active">
             <h2 style="color: #fff;">Hey Eshal... ✨</h2>
-            <p>Aapke liye aik chota sa surprise hai, is Dil par touch karne se khulega. ❤️</p>
-            <div class="heart" onclick="nextStep(2)">💝</div>
+            <p>Aapke liye aik chota sa surprise tayyar kiya hai. Is dil par touch karein aur volume up rakhein! 🔊</p>
+            <div style="margin-top: 30px;">
+                <div class="heart" onclick="startSurprise()">💝</div>
+            </div>
         </div>
 
         <!-- Step 2: Emotional Message -->
         <div id="step2" class="step">
             <h2>To My Sweetest... 🥰</h2>
-            <p>"Kuch log zindagi mein itne khaas hote hain ke unki maujoodgi se hi poori duniya haseen lagne lagti hai."</p>
-            <p>Eshal, aap mere dil ke sab se kareeb aur boht hi zyada special ho. ✨</p>
+            <p style="font-style: italic; color: #ff8a80; font-size: 17px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border-left: 3px solid #ff416c;">
+                "Kuch log zindagi mein itne khaas hote hain ke unki maujoodgi se hi poori duniya haseen lagne lagti hai."
+            </p>
+            <p style="margin-top: 20px;">Eshal, aap mere dil ke sab se kareeb aur boht hi zyada special ho. ✨</p>
             <button class="btn" onclick="nextStep(3)">Tap Next ➔</button>
         </div>
 
         <!-- Step 3: Cake Cutting Step -->
         <div id="step3" class="step">
             <h2>Virtual Cake Cutting! 🎂</h2>
-            <p>Chalein, ab mil kar aapka birthday cake cut karte hain, Mera Bacha Bacha! Blow the candle and tap below.</p>
-            <div class="cake">🎂✨🕯️</div>
-            <button class="btn" onclick="nextStep(4)">Cut the Cake 🔪</button>
+            <p>Chalein, ab mil kar aapka birthday cake cut karte hain, <span style="color:#ff4b2b; font-weight:600;">Mera Bacha</span>! 🕯️</p>
+            
+            <!-- Real Look CSS Cake -->
+            <div class="cake-container" id="cakeContainer">
+                <div class="candle"><div class="flame" id="candleFlame"></div></div>
+                <div class="cake-body">
+                    <div class="cake-cream"></div>
+                </div>
+            </div>
+
+            <button class="btn" id="cutBtn" onclick="performCakeCut()">Cut the Cake 🔪</button>
         </div>
 
         <!-- Step 4: Final Wishes -->
         <div id="step4" class="step">
             <h2>🎉 Happy Birthday Eshal! 💖</h2>
             <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
-            <p style="color: #ff416c; font-weight: bold;">Happy Birthday, Mera Bacha Bacha! 🥳</p>
-            <div style="font-size: 35px; margin-top: 15px;">🎈🌹🎁🍫👑🎈</div>
-            <p style="font-size: 13px; color: #aaa; margin-top: 20px;">~ Made with ❤️ for you</p>
+            <p style="font-size: 18px; color: #ff416c; font-weight: 700; margin-top: 20px;">Happy Birthday, Mera Bacha! 🥳</p>
+            <div style="font-size: 38px; margin-top: 20px; letter-spacing: 5px;">🎈🌹🌸🎁</div>
         </div>
     </div>
 
     <script>
+        function startSurprise() {
+            var audio = document.getElementById("bgMusic");
+            audio.play().catch(function(e) { console.log(e); });
+            createEffects();
+            nextStep(2);
+        }
+
         function nextStep(currentStep) {
             document.querySelectorAll('.step').forEach(step => {
                 step.classList.remove('active');
             });
-            
             document.getElementById('step' + currentStep).classList.add('active');
 
             if(currentStep === 2) {
-                document.body.style.background = "#1a0826"; 
+                document.body.style.background = "linear-gradient(135deg, #1f102f, #0d0614)";
             } else if(currentStep === 3) {
-                document.body.style.background = "#240b17"; 
+                document.body.style.background = "linear-gradient(135deg, #2b0c1d, #14040d)";
             } else if(currentStep === 4) {
-                document.body.style.background = "linear-gradient(135deg, #111, #2d0b1e)"; 
+                document.body.style.background = "linear-gradient(135deg, #0d0d0d, #240715, #08010d)";
             }
+        }
+
+        // Cake cut karne aur naya gana chalane ka action
+        function performCakeCut() {
+            // Cake structure mein gap (cut) create karna
+            document.getElementById('cakeContainer').classList.add('cut');
+            
+            // Purana background music rokhna
+            document.getElementById("bgMusic").pause();
+            
+            // Happy Birthday wala naya music chalana
+            var bdayAudio = document.getElementById("birthdayMusic");
+            bdayAudio.play().catch(function(e) { console.log(e); });
+
+            // 1.5 seconds ka delay taake wo cut hota hua dekh sakein, phir automatic next step pr jaye
+            setTimeout(function() {
+                nextStep(4);
+            }, 1500);
+        }
+
+        function createEffects() {
+            const container = document.getElementById('effectsContainer');
+            const items = ['🎈', '🌹', '🌸', '✨', '💖'];
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.classList.add('element');
+                element.innerText = items[Math.floor(Math.random() * items.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                element.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(element);
+                setTimeout(() => { element.remove(); }, 6000);
+            }, 250);
         }
     </script>
 </body>
-</html>
+                </html>
+                
