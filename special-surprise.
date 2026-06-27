@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Eshal... ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0c20;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 1.5s ease;
+        }
+        .card {
+            width: 85%;
+            max-width: 380px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .step { display: none; animation: fadeIn 1s ease forwards; }
+        .step.active { display: block; }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+        
+        .heart { font-size: 70px; animation: pulse 1.2s infinite; cursor: pointer; }
+        .cake { font-size: 80px; margin: 20px 0; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 { font-size: 24px; color: #ff416c; margin-bottom: 10px; }
+        p { font-size: 16px; line-height: 1.6; color: #e0e0e0; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Step 1: The Heart Touch -->
+        <div id="step1" class="step active">
+            <h2 style="color: #fff;">Hey Eshal... ✨</h2>
+            <p>Aapke liye aik chota sa surprise hai, is Dil par touch karne se khulega. ❤️</p>
+            <div class="heart" onclick="nextStep(2)">💝</div>
+        </div>
+
+        <!-- Step 2: Emotional Message -->
+        <div id="step2" class="step">
+            <h2>To My Sweetest... 🥰</h2>
+            <p>"Kuch log zindagi mein itne khaas hote hain ke unki maujoodgi se hi poori duniya haseen lagne lagti hai."</p>
+            <p>Eshal, aap mere dil ke sab se kareeb aur boht hi zyada special ho. ✨</p>
+            <button class="btn" onclick="nextStep(3)">Tap Next ➔</button>
+        </div>
+
+        <!-- Step 3: Cake Cutting Step -->
+        <div id="step3" class="step">
+            <h2>Virtual Cake Cutting! 🎂</h2>
+            <p>Chalein, ab mil kar aapka birthday cake cut karte hain, Mera Bacha Bacha! Blow the candle and tap below.</p>
+            <div class="cake">🎂✨🕯️</div>
+            <button class="btn" onclick="nextStep(4)">Cut the Cake 🔪</button>
+        </div>
+
+        <!-- Step 4: Final Wishes -->
+        <div id="step4" class="step">
+            <h2>🎉 Happy Birthday Eshal! 💖</h2>
+            <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
+            <p style="color: #ff416c; font-weight: bold;">Happy Birthday, Mera Bacha Bacha! 🥳</p>
+            <div style="font-size: 35px; margin-top: 15px;">🎈🌹🎁🍫👑🎈</div>
+            <p style="font-size: 13px; color: #aaa; margin-top: 20px;">~ Made with ❤️ for you</p>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(currentStep) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            document.getElementById('step' + currentStep).classList.add('active');
+
+            if(currentStep === 2) {
+                document.body.style.background = "#1a0826"; 
+            } else if(currentStep === 3) {
+                document.body.style.background = "#240b17"; 
+            } else if(currentStep === 4) {
+                document.body.style.background = "linear-gradient(135deg, #111, #2d0b1e)"; 
+            }
+        }
+    </script>
+</body>
+</html>
