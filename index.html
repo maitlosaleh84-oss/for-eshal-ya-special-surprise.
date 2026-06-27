@@ -4,189 +4,337 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Eshal... ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; transition: all 0.5s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f0c20, #150a21, #240b2e);
+            background: #090514;
             color: #fff;
             text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             overflow: hidden;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
-        
+
+        /* Countdown Overlay Screen */
+        #countdownOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #05020a;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .counter-number {
+            font-size: 120px;
+            font-weight: 700;
+            color: #ff416c;
+            text-shadow: 0 0 30px rgba(255, 65, 108, 0.6);
+            animation: pulseCount 1s ease-in-out infinite;
+        }
+        @keyframes pulseCount {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        /* Real Falling Rose Petals Layer */
+        .petals-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .petal {
+            position: absolute;
+            background: radial-gradient(#ff416c, #bd002a);
+            border-radius: 150px 10px 150px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            opacity: 0.8;
+            animation: fadeAndSpin linear infinite;
+        }
+        @keyframes fadeAndSpin {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+        }
+
         /* Interactive Popping Balloons Layer */
         .balloon-zone {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             overflow: hidden;
-            z-index: 999; /* Isko sab se upar rakha hai taake touch ho sakein */
+            z-index: 999;
             pointer-events: none;
         }
         .pop-balloon {
             position: absolute;
-            font-size: 45px;
+            width: 55px; height: 70px;
+            background: radial-gradient(circle at 30% 30%, #ff4b2b, #ff416c);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
-            pointer-events: auto; /* Clickable balloon */
-            animation: floatUp 5s linear forwards;
-            bottom: -60px;
-            user-select: none;
+            pointer-events: auto;
+            animation: floatUp 6s linear forwards;
+            bottom: -80px;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.3), 0 10px 20px rgba(255,65,108,0.3);
+        }
+        .pop-balloon::before {
+            content: ""; position: absolute; bottom: -6px; left: 24px;
+            width: 0; height: 0;
+            border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 6px solid #ff416c;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) scale(1); opacity: 0; }
-            10% { opacity: 1; }
+            15% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-105vh) scale(1); opacity: 0; }
+            100% { transform: translateY(-110vh) scale(1); opacity: 0; }
         }
 
+        /* Floating Balloon Love Note Text */
+        .love-note {
+            position: absolute;
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: #fff;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            pointer-events: none;
+            z-index: 2000;
+            animation: noteFly 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+        @keyframes noteFly {
+            0% { transform: scale(0.3); opacity: 0; }
+            20% { transform: scale(1.1); opacity: 1; }
+            40% { transform: scale(1); }
+            80% { opacity: 1; transform: translateY(-50px); }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+
+        /* Glassmorphic Card Container */
         .card {
             width: 90%;
-            max-width: 400px;
-            padding: 40px 25px;
-            background: rgba(30, 20, 45, 0.9);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            max-width: 410px;
+            padding: 45px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             z-index: 10;
             position: relative;
+            transform-style: preserve-3d;
         }
-        .step { display: none; animation: smoothReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .step { display: none; animation: smoothReveal 0.6s ease-out forwards; }
         .step.active { display: block; }
-        
+
         .btn {
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
             border: none;
-            padding: 14px 35px;
+            padding: 15px 40px;
             font-size: 16px;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 25px;
-            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.4);
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
         }
-        
-        .heart { font-size: 90px; animation: pulse 1.4s infinite ease-in-out; cursor: pointer; }
-        
-        /* REALISTIC IMAGE CAKE STYLING */
-        .cake-wrapper {
-            margin: 25px auto;
-            position: relative;
+        .btn:active { transform: scale(0.95); }
+
+        /* REAL 3D CSS CAKE DESIGN */
+        .cake-3d-scene {
             width: 200px;
-            height: 180px;
+            height: 200px;
+            margin: 20px auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(25deg) rotateY(-15deg);
+            transition: transform 1s ease;
         }
-        .real-cake-img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
-        }
-        .cut-line {
+        .cake-layer {
             position: absolute;
-            top: 0; left: 50%;
-            width: 4px; height: 100%;
-            background: transparent;
-            transform: translateX(-50%);
+            width: 160px;
+            height: 70px;
+            background: #40220d; /* Premium Chocolate Brown */
+            left: 20px;
+            bottom: 20px;
+            border-radius: 50% / 25px;
+            box-shadow: inset 0 10px 0 #301808, 0 15px 20px rgba(0,0,0,0.5);
+            border-bottom: 12px solid #542d13;
         }
-        /* Knife Slash Animation Effect */
-        .cake-wrapper.slashed .cut-line {
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 0 15px #fff;
-            animation: slashEffect 0.5s ease-out forwards;
+        .cake-layer::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 30px;
+            background: #fff; /* White Cream Frosting Top */
+            border-radius: 50%;
+            box-shadow: inset 0 -4px 5px rgba(0,0,0,0.1);
         }
-        @keyframes slashEffect {
-            0% { height: 0%; opacity: 1; }
-            100% { height: 100%; opacity: 0; }
+        .cake-candle-3d {
+            position: absolute;
+            top: -25px; left: 93px;
+            width: 14px; height: 45px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            border-radius: 4px;
+            z-index: 100;
         }
-        
-        @keyframes pulse {
+        .flame-3d {
+            position: absolute;
+            top: -16px; left: 2px;
+            width: 10px; height: 18px;
+            background: #ff9800;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #ffeb3b, 0 0 25px #ff5722;
+            animation: flicker 0.1s infinite alternate;
+        }
+        @keyframes flicker {
             0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
+            100% { transform: scale(1.15) translateY(-1px); }
         }
+
+        /* 3D CUT EFFECT */
+        .cake-3d-scene.split .cake-layer {
+            animation: splitCake 0.8s ease-out forwards;
+        }
+        .cake-3d-scene.split .flame-3d { display: none; }
+        @keyframes splitCake {
+            100% { clip-path: polygon(0% 0%, 46% 0%, 42% 100%, 0% 100%, 100% 100%, 100% 0%, 54% 0%, 58% 100%); opacity: 0.9; }
+        }
+
         @keyframes smoothReveal {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        h2 { font-size: 26px; color: #ff416c; margin-bottom: 12px; font-weight: 700; }
-        p { font-size: 16px; line-height: 1.7; color: #f0f0f0; }
+        h2 { font-size: 28px; color: #ff416c; margin-bottom: 15px; font-weight: 700; }
+        p { font-size: 16px; line-height: 1.8; color: #f0f0f0; }
+        .wishes-heading { font-family: 'Great Vibes', cursive; font-size: 42px; color: #ff4b2b; }
     </style>
 </head>
 <body>
 
-    <!-- 100% HD Crystal Clear Instrumental Audio Streams -->
-    <!-- Soft Piano Background for Start -->
+    <!-- 100% Safe Clean High Quality Audio Streams -->
     <audio id="bgMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
     </audio>
-    <!-- Actual High-Quality Happy Birthday Song for Cake Cut -->
     <audio id="birthdayMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
     </audio>
-    <!-- Balloon Pop Sound Effect -->
     <audio id="popSound">
         <source src="https://assets.mixkit.co/active_storage/sfx/123/123-200.wav" type="audio/wav">
     </audio>
 
-    <!-- Interactive Balloon Zone -->
+    <!-- Global Surprise Elements Layers -->
+    <div class="petals-container" id="petalsContainer"></div>
     <div class="balloon-zone" id="balloonZone"></div>
 
+    <!-- Countdown Intro Screen -->
+    <div id="countdownOverlay">
+        <h3 style="font-size: 22px; margin-bottom: 20px; color: #aaa; letter-spacing: 2px;">PREPARING SURPRISES...</h3>
+        <div class="counter-number" id="countdownNumber">3</div>
+    </div>
+
+    <!-- Main Card Content -->
     <div class="card">
-        <!-- Step 1 -->
+        <!-- Step 1: The Touch Gate -->
         <div id="step1" class="step active">
-            <h2 style="color: #fff;">Hey Eshal... ✨</h2>
-            <p>Aapke liye aik chota sa surprise tayyar kiya hai. Is dil par touch karne se khulega. ❤️</p>
-            <div style="margin-top: 30px;">
-                <div class="heart" onclick="startSurprise()">💝</div>
-            </div>
+            <h2>Welcome Eshal... ✨</h2>
+            <p>Aapke liye unlimited surprises ready hain. Is gate par touch karein aur volume tez rakhein! 🔊</p>
+            <button class="btn" onclick="startCountdown()">Unlock Surprise 💝</button>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Step 2: Deep Wishes -->
         <div id="step2" class="step">
             <h2>To My Sweetest... 🥰</h2>
-            <p style="font-style: italic; color: #ff8a80; font-size: 17px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border-left: 3px solid #ff416c;">
+            <p style="font-style: italic; color: #ff8a80; font-size: 17px; background: rgba(255,255,255,0.02); padding: 18px; border-radius: 16px; border-left: 4px solid #ff416c; margin-bottom: 15px;">
                 "Kuch log zindagi mein itne khaas hote hain ke unki maujoodgi se hi poori duniya haseen lagne lagti hai."
             </p>
-            <p style="margin-top: 20px;">Eshal, aap mere dil ke sab se kareeb aur boht hi zyada special ho. ✨</p>
+            <p>Eshal, aap mere dil ke sab se kareeb aur boht hi zyada special ho. ✨</p>
             <button class="btn" onclick="nextStep(3)">Tap Next ➔</button>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 3: Interactive 3D Cake Cut -->
         <div id="step3" class="step">
             <h2>Virtual Cake Cutting! 🎂</h2>
             <p>Chalein, ab mil kar aapka birthday cake cut karte hain, <span style="color:#ff4b2b; font-weight:600;">Mera Bacha</span>! 🕯️</p>
             
-            <!-- REAL HIGH-QUALITY DIGITAL CHOCOLATE CAKE IMAGE -->
-            <div class="cake-wrapper" id="cakeWrapper">
-                <div class="cut-line"></div>
-                <img src="https://i.ibb.co/ZhcG6N6/chocolate-cake.png" alt="Real Birthday Cake" class="real-cake-img">
+            <!-- Real CSS 3D Layered Cake -->
+            <div class="cake-3d-scene" id="cakeScene">
+                <div class="cake-candle-3d"><div class="flame-3d"></div></div>
+                <div class="cake-layer"></div>
             </div>
 
-            <button class="btn" onclick="performCakeCut()">Cut the Cake 🔪</button>
+            <button class="btn" onclick="perform3DCakeCut()">Cut the Cake 🔪</button>
         </div>
 
-        <!-- Step 4 -->
+        <!-- Step 4: Live Wishes + Balloon Game -->
         <div id="step4" class="step">
-            <h2>🎉 Happy Birthday Eshal! 💖</h2>
+            <h2 class="wishes-heading">Happy Birthday Eshal! 💖</h2>
             <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
-            <p style="font-size: 18px; color: #ff416c; font-weight: 700; margin-top: 20px;">Happy Birthday, Mera Bacha! 🥳</p>
-            <p style="font-size: 14px; color: #ff8a80; margin-top: 10px;">(🎈 In gubbaron par touch kar ke inhein phorhein!)</p>
-            <div style="font-size: 38px; margin-top: 20px; letter-spacing: 5px;">🎈🌹🌸🎁</div>
+            <p style="font-size: 18px; color: #ff416c; font-weight: 700; margin-top: 15px;">Happy Birthday, Mera Bacha! 🥳</p>
+            <p style="font-size: 13px; color: #ff8a80; margin-top: 15px; background: rgba(255,255,255,0.04); padding: 8px; border-radius: 8px;">
+                🎈 Niche se aate huay gubbaron ko touch karke phorhein! Aapke liye messages hain!
+            </p>
         </div>
     </div>
 
     <script>
-        function startSurprise() {
-            var audio = document.getElementById("bgMusic");
-            audio.play().catch(function(e) { console.log(e); });
-            nextStep(2);
+        // Real Rose Petals Simulation Logic
+        function triggerRealPetals() {
+            const container = document.getElementById('petalsContainer');
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // Random dynamic organic shaping for realistic petal look
+                const width = Math.random() * 12 + 10;
+                const height = Math.random() * 15 + 12;
+                petal.style.width = width + 'px';
+                petal.style.height = height + 'px';
+                
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(petal);
+                
+                setTimeout(() => { petal.remove(); }, 7000);
+            }, 180);
+        }
+
+        // Live Countdown Action
+        function startCountdown() {
+            document.getElementById('step1').style.display = 'none';
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.style.display = 'flex';
+            
+            let count = 3;
+            let timer = setInterval(() => {
+                count--;
+                if(count === 2) num.innerText = "2";
+                if(count === 1) num.innerText = "1";
+                if(count === 0) {
+                    num.innerText = "GO! 💖";
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        overlay.style.fadeOut = "0.5s";
+                        overlay.style.display = 'none';
+                        // Audio activation safely on user click action
+                        var audio = document.getElementById("bgMusic");
+                        audio.play().catch(e => console.log(e));
+                        triggerRealPetals();
+                        nextStep(2);
+                    }, 800);
+                }
+            }, 1000);
         }
 
         function nextStep(currentStep) {
@@ -195,54 +343,69 @@
             });
             document.getElementById('step' + currentStep).classList.add('active');
             
-            // Step 4 (Wish Page) par clickable gubbare urana shuru karein
             if (currentStep === 4) {
                 startInteractiveBalloons();
             }
         }
 
-        function performCakeCut() {
-            // Cake par visual cut slash lagana
-            document.getElementById('cakeWrapper').classList.add('slashed');
+        // Real 3D Cake Slicing Mechanism
+        function perform3DCakeCut() {
+            document.getElementById('cakeScene').classList.add('split');
             
-            // Audio change seamlessly to Happy Birthday Song
+            // Seamless audio shift
             document.getElementById("bgMusic").pause();
             var bdayAudio = document.getElementById("birthdayMusic");
-            bdayAudio.play().catch(function(e) { console.log(e); });
+            bdayAudio.play().catch(e => console.log(e));
 
             setTimeout(function() {
                 nextStep(4);
-            }, 1000);
+            }, 1200);
         }
 
-        // Clickable Balloons logic
+        // Interactive Balloon Game Logic with Floating Love Notes
         function startInteractiveBalloons() {
             const zone = document.getElementById('balloonZone');
-            const balloonEmojis = ['🎈', '💖', '🎈', '✨'];
+            const loveNotesData = [
+                "You are Special ✨", "Mera Bacha 🥰", "Hamesha Muskurao 🌸", 
+                "Stay Blessed 🤲", "My Favorite ❤️", "Be Happy Always 💖", 
+                "Sweetest Person 🌹", "Best Day Ever 🎉"
+            ];
+            const colors = [
+                'linear-gradient(45deg, #ff416c, #ff4b2b)',
+                'linear-gradient(45deg, #ff0844, #ffb199)',
+                'linear-gradient(45deg, #f107a3, #7b2ff7)',
+                'linear-gradient(45deg, #ff758c, #ff7eb3)'
+            ];
             
             setInterval(() => {
                 const balloon = document.createElement('div');
                 balloon.classList.add('pop-balloon');
-                balloon.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
-                
+                balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
                 balloon.style.left = Math.random() * 85 + 5 + 'vw';
-                balloon.style.animationDuration = (Math.random() * 2 + 4) + 's'; // 4-6s float speed
+                balloon.style.animationDuration = (Math.random() * 2 + 4) + 's';
                 
-                // Touch/Click Event to POP the balloon
-                balloon.addEventListener('click', function() {
-                    // Pop sound play karein
+                // Touch Engine to Pop & Reveal custom floating notes
+                balloon.addEventListener('click', function(e) {
                     const popSound = document.getElementById('popSound');
                     popSound.currentTime = 0;
-                    popSound.play().catch(e => console.log(e));
+                    popSound.play().catch(err => console.log(err));
                     
-                    // Balloon text ko phatne wale blast animation se badlein
-                    balloon.innerText = '💥';
-                    setTimeout(() => { balloon.remove(); }, 150);
+                    // Generate floating love text precisely at click coordinates
+                    const note = document.createElement('div');
+                    note.classList.add('love-note');
+                    note.innerText = loveNotesData[Math.floor(Math.random() * loveNotesData.length)];
+                    note.style.left = e.clientX + 'px';
+                    note.style.top = e.clientY + 'px';
+                    document.body.appendChild(note);
+                    
+                    // Remove elements after animations end
+                    setTimeout(() => { note.remove(); }, 2000);
+                    balloon.remove();
                 });
                 
                 zone.appendChild(balloon);
                 setTimeout(() => { balloon.remove(); }, 6000);
-            }, 400);
+            }, 450);
         }
     </script>
 </body>
