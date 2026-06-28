@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Eshal... ❤️</title>
-    <link href="https://fonts.googleapis.com/css2 family=Poppins:wght@400;600;700&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -21,11 +21,11 @@
             perspective: 1000px;
         }
 
-        /* Countdown Overlay Screen */
+        /* Countdown Overlay Screen matching the Balloon Tunnel vibe */
         #countdownOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #05020a;
+            background: linear-gradient(135deg, #1a0b2e, #05020a);
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -33,13 +33,19 @@
             align-items: center;
         }
         .counter-number {
-            font-size: 100px;
+            font-size: 120px;
             font-weight: 700;
-            color: #ff416c;
-            text-shadow: 0 0 30px rgba(255, 65, 108, 0.6);
+            color: #4da6ff;
+            text-shadow: 0 0 35px rgba(77, 166, 255, 0.8), 0 0 10px rgba(255,255,255,0.5);
+            animation: popIn 1s ease-in-out infinite alternate;
         }
 
-        /* Sharp HD Falling Rose Petals (No Blur) */
+        @keyframes popIn {
+            0% { transform: scale(0.8); }
+            10% { transform: scale(1.1); }
+        }
+
+        /* Falling Rose Petals */
         .petals-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -62,7 +68,7 @@
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Perfect Slow Floating Balloons */
+        /* Floating Balloons Zone */
         .balloon-zone {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -72,7 +78,7 @@
         }
         .pop-balloon {
             position: absolute;
-            width: 50px; height: 65px;
+            width: 55px; height: 70px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             pointer-events: auto;
@@ -81,7 +87,7 @@
             box-shadow: inset -4px -6px 12px rgba(0,0,0,0.4), 0 8px 15px rgba(255,65,108,0.25);
         }
         .pop-balloon::before {
-            content: ""; position: absolute; bottom: -5px; left: 22px;
+            content: ""; position: absolute; bottom: -5px; left: 24px;
             border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 5px solid rgba(255,255,255,0.7);
         }
         @keyframes floatUpSlow {
@@ -92,25 +98,26 @@
             100% { transform: translateY(-115vh) scale(1) translateX(-10px); opacity: 0; }
         }
 
-        /* Floating Balloon Love Note Text */
+        /* Floating Heart/Love Notes Popup */
         .love-note {
             position: absolute;
-            font-family: 'Great Vibes', cursive;
-            font-size: 26px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
             color: #fff;
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            padding: 6px 16px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            padding: 8px 18px;
+            border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             pointer-events: none;
             z-index: 2000;
             animation: noteFly 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
         @keyframes noteFly {
-            0% { transform: scale(0.4); opacity: 0; }
-            20% { transform: scale(1.05); opacity: 1; }
-            80% { opacity: 1; transform: translateY(-40px); }
-            100% { opacity: 0; transform: translateY(-90px); }
+            0% { transform: scale(0.4) translateY(0); opacity: 0; }
+            20% { transform: scale(1.05) translateY(-20px); opacity: 1; }
+            80% { opacity: 1; transform: translateY(-60px); }
+            100% { opacity: 0; transform: translateY(-110px); }
         }
 
         /* Glassmorphic Card Container */
@@ -118,11 +125,11 @@
             width: 90%;
             max-width: 410px;
             padding: 35px 22px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 30px;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             z-index: 10;
             position: relative;
@@ -145,70 +152,64 @@
         }
         .btn:active { transform: scale(0.96); }
 
-        /* REAL CUSTOMIZED GRAND CAKE CONTAINER */
+        /* CAKE DISPLAY SETTINGS */
         .real-cake-wrapper {
-            width: 260px;
-            height: 240px;
+            width: 280px;
+            height: 260px;
             margin: 15px auto;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: visible;
         }
         .cake-img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 15px;
-            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.6));
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.7));
             transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* Realistic Integrated Text Overlay for Eshal */
+        /* Centered overlay text alignment for Eshal */
         .cake-name-overlay {
             position: absolute;
-            top: 48%;
+            top: 54%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Parisienne', cursive;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.4);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.7);
             pointer-events: none;
             letter-spacing: 1px;
-            transition: transform 1.2s ease, opacity 0.5s;
         }
 
-        /* 3D Split Slicing Action */
+        /* 3D Split Action */
         .real-cake-wrapper.split .cake-img {
             animation: sliceRealCake 1.2s ease-out forwards;
         }
         .real-cake-wrapper.split .cake-name-overlay {
-            animation: sliceText 1.2s ease-out forwards;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         @keyframes sliceRealCake {
             100% { 
                 clip-path: polygon(0% 0%, 48% 0%, 45% 100%, 0% 100%, 100% 100%, 100% 0%, 52% 0%, 55% 100%); 
                 transform: scale(0.95);
-                opacity: 0.85;
-            }
-        }
-        @keyframes sliceText {
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.7;
             }
         }
 
         h2 { font-size: 26px; color: #ff416c; margin-bottom: 12px; font-weight: 700; }
         p { font-size: 15px; line-height: 1.7; color: #f0f0f0; }
-        .wishes-heading { font-family: 'Great Vibes', cursive; font-size: 40px; color: #ff4b2b; }
+        .wishes-heading { font-family: 'Great Vibes', cursive; font-size: 42px; color: #ff4b2b; text-shadow: 0 0 10px rgba(255,75,43,0.3); }
     </style>
 </head>
 <body>
 
+    <!-- Audio Streams Setup -->
     <audio id="bgMusic" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
     </audio>
@@ -223,7 +224,7 @@
     <div class="balloon-zone" id="balloonZone"></div>
 
     <div id="countdownOverlay" style="display: none;">
-        <h3 style="font-size: 20px; margin-bottom: 20px; color: #aaa; letter-spacing: 2px;">PREPARING SURPRISES...</h3>
+        <h3 style="font-size: 16px; margin-bottom: 25px; color: #bbb; letter-spacing: 3px; font-weight: 600;">GET READY...</h3>
         <div class="counter-number" id="countdownNumber">3</div>
     </div>
 
@@ -245,22 +246,21 @@
             <button class="btn" onclick="nextStep(3)">Tap Next ➔</button>
         </div>
 
-        <!-- Step 3: High-End Custom Cake Cutting Section -->
+        <!-- Step 3: Fixed Cake Image Section -->
         <div id="step3" class="step">
             <h2>Virtual Cake Cutting! 🎂</h2>
             <p>Chalein, ab mil kar aapka birthday cake cut karte hain, <span style="color:#ff4b2b; font-weight:600;">Mera Bacha</span>! 🕯️</p>
             
             <div class="real-cake-wrapper" id="cakeWrapper">
-                <!-- Direct link to the exact gorgeous pink cake style from 1000046661.jpg -->
-                <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13636?w=600&auto=format&fit=crop&q=80" alt="Happy Birthday Cake" class="cake-img" onerror="this.src='cake.jpg';">
-                <!-- Custom Dynamic Font Overlay for "Eshal" on the second tier -->
+                <!-- Image file from local workspace directory -->
+                <img src="1000046661.jpg" alt="Happy Birthday Cake" class="cake-img">
                 <div class="cake-name-overlay">Eshal</div>
             </div>
 
             <button class="btn" onclick="performRealCakeCut()">Cut the Cake 🔪</button>
         </div>
 
-        <!-- Step 4: Live Wishes + Balanced Slow Game Screen -->
+        <!-- Step 4: Final Screen -->
         <div id="step4" class="step">
             <h2 class="wishes-heading">Happy Birthday Eshal! 💖</h2>
             <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
@@ -294,7 +294,7 @@
             overlay.style.display = 'flex';
             
             var audio = document.getElementById("bgMusic");
-            audio.play().catch(e => console.log("Audio activation successful"));
+            audio.play().catch(e => console.log("Audio playing smoothly"));
 
             let count = 3;
             let timer = setInterval(() => {
