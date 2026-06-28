@@ -27,6 +27,9 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #1a0b2e, #05020a);
             z-index: 20000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #gameTargetArea {
@@ -39,9 +42,9 @@
         }
 
         .game-balloon {
-            position: absolute;
-            width: 110px;
-            height: 135px;
+            position: relative;
+            width: 120px;
+            height: 145px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
             box-shadow: inset -6px -10px 20px rgba(0,0,0,0.5), 0 10px 25px rgba(255, 65, 108, 0.4);
@@ -53,32 +56,36 @@
             font-size: 16px;
             color: #fff;
             z-index: 20500;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .game-balloon::before {
-            content: ""; position: absolute; bottom: -7px; left: 51px;
+            content: ""; position: absolute; bottom: -7px; left: calc(50% - 4px);
             border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid rgba(255,255,255,0.7);
         }
 
         @keyframes gentleFloat {
             0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-15px) scale(1.03); }
+            100% { transform: translateY(-15px) scale(1.05); }
         }
 
         .pop-text-effect {
             position: absolute;
-            font-size: 110px;
+            font-size: 80px;
             font-weight: 700;
             color: #4da6ff;
-            text-shadow: 0 0 40px rgba(77, 166, 255, 0.9), 0 0 15px rgba(255,255,255,0.6);
+            text-shadow: 0 0 30px rgba(77, 166, 255, 0.9), 0 0 15px rgba(255,255,255,0.6);
             animation: textBlast 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             pointer-events: none;
             z-index: 21000;
+            width: 100%;
+            text-align: center;
         }
         @keyframes textBlast {
             0% { transform: scale(0.3); opacity: 0; }
             30% { transform: scale(1.1); opacity: 1; }
             80% { opacity: 1; transform: scale(1); }
-            100% { transform: scale(0.8) translateY(-50px); opacity: 0; }
+            100% { transform: scale(0.8) translateY(-40px); opacity: 0; }
         }
 
         .big-floating-heart {
@@ -86,13 +93,14 @@
             font-size: 110px;
             cursor: pointer;
             z-index: 20500;
-            animation: heartRiseUp 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: heartPulse 1.5s ease-in-out infinite alternate;
             filter: drop-shadow(0 10px 20px rgba(255, 65, 108, 0.5));
+            user-select: none;
+            -webkit-user-select: none;
         }
-        @keyframes heartRiseUp {
-            0% { bottom: -150px; transform: scale(0.5) rotate(0deg); opacity: 0; }
-            20% { opacity: 1; transform: scale(1.2); }
-            100% { bottom: 42%; transform: scale(1.1) rotate(5deg); }
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
         }
 
         /* --- MAIN BACKGROUND FLOWERS & BALLOONS --- */
@@ -157,7 +165,7 @@
         /* Step 3 Target Game Area for Nickname Balloons */
         #step3GameContainer {
             width: 100%;
-            height: 240px;
+            height: 250px;
             position: relative;
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.01);
@@ -174,7 +182,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: #fff;
             text-align: center;
@@ -196,7 +204,7 @@
             border-radius: 25px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             pointer-events: none;
-            z-index: 2000;
+            z-index: 22000;
             animation: noteFly 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
         @keyframes noteFly {
@@ -279,7 +287,7 @@
         }
         .real-cake-wrapper.split .cake-name-overlay {
             opacity: 0;
-            transition: opacity 0.3s ease;
+Transition: opacity 0.3s ease;
         }
         @keyframes sliceRealCake {
             100% { 
@@ -361,7 +369,7 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("load", function() {
             let gameState = 1;
             const targetArea = document.getElementById('gameTargetArea');
             const nicknames = ["khross", "bawli", "Cute 🥰 sa bcha", "Masom si jaan 🙃", "Pyari si shzadi", "Mera Pyara bcha"];
@@ -378,20 +386,20 @@
                 txt.classList.add('pop-text-effect');
                 txt.innerText = text;
                 if (isWelcome) {
-                    txt.style.fontSize = "32px";
+                    txt.style.fontSize = "26px";
                     txt.style.color = "#ff416c";
                     txt.style.width = "90%";
-                    txt.style.textAlign = "center";
                     txt.style.textShadow = "0 0 25px rgba(255,65,108,0.8)";
                 }
-                txt.style.left = "50%";
-                txt.style.top = "45%";
-                txt.style.transform = "translate(-50%, -50%)";
                 targetArea.appendChild(txt);
                 setTimeout(() => txt.remove(), 1300);
             }
 
             function spawnGameBalloon() {
+                // Pehle agar koi balloon mojood hai to hatayein taake overlap na ho
+                const oldBalloon = targetArea.querySelector('.game-balloon');
+                if(oldBalloon) oldBalloon.remove();
+
                 const balloon = document.createElement('div');
                 balloon.classList.add('game-balloon');
                 
@@ -407,29 +415,30 @@
                 } else if (gameState === 4) {
                     balloon.style.background = "radial-gradient(circle at 30% 30%, #e74c3c, #962d22)";
                     balloon.innerText = "🎁 Surprise";
-                    balloon.style.width = "120px";
-                    balloon.style.height = "145px";
+                    balloon.style.width = "130px";
+                    balloon.style.height = "155px";
                 }
 
-                balloon.onclick = function() {
+                balloon.onclick = function(e) {
+                    e.stopPropagation();
                     playPopSound();
                     balloon.remove();
                     
                     if (gameState === 1) {
                         createPopText("3");
                         gameState = 2;
-                        setTimeout(spawnGameBalloon, 700);
+                        setTimeout(spawnGameBalloon, 500);
                     } else if (gameState === 2) {
                         createPopText("2");
                         gameState = 3;
-                        setTimeout(spawnGameBalloon, 700);
+                        setTimeout(spawnGameBalloon, 500);
                     } else if (gameState === 3) {
                         createPopText("1");
                         gameState = 4;
-                        setTimeout(spawnGameBalloon, 700);
+                        setTimeout(spawnGameBalloon, 500);
                     } else if (gameState === 4) {
                         createPopText("Welcome Khross Insan ❤️", true);
-                        setTimeout(spawnBigHeart, 1400);
+                        setTimeout(spawnBigHeart, 1200);
                     }
                 };
                 targetArea.appendChild(balloon);
@@ -440,15 +449,17 @@
                 heart.classList.add('big-floating-heart');
                 heart.innerHTML = "💗";
                 
-                heart.onclick = function() {
+                heart.onclick = function(e) {
+                    e.stopPropagation();
                     playPopSound();
                     heart.remove();
                     triggerOngoingFlowerStorm();
                     document.getElementById('bgMusic').play().catch(e => console.log("Music Triggered"));
                     setTimeout(() => {
-                        document.getElementById('introGameOverlay').style.display = 'none';
+                        document.getElementById('introGameOverlay').style.style.display = 'none';
+                        document.getElementById('introGameOverlay').remove(); // Dom se permanently remove taake clicks block na hon
                         document.getElementById('mainCard').style.display = 'block';
-                    }, 900);
+                    }, 800);
                 };
                 targetArea.appendChild(heart);
             }
@@ -469,12 +480,4 @@
 
                     const hParticle = document.createElement('div');
                     hParticle.classList.add('heart-particle');
-                    hParticle.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-                    hParticle.style.left = Math.random() * 100 + 'vw';
-                    hParticle.style.animationDuration = (Math.random() * 2 + 4) + 's';
-                    container.appendChild(hParticle);
-                    setTimeout(() => { hParticle.remove(); }, 6000);
-                }, 180);
-            }
-
-            window.generateNickname
+                    hParticle.innerText = hearts[Math.floo
