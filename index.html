@@ -287,7 +287,7 @@
         }
         .real-cake-wrapper.split .cake-name-overlay {
             opacity: 0;
-Transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease;
         }
         @keyframes sliceRealCake {
             100% { 
@@ -369,7 +369,8 @@ Transition: opacity 0.3s ease;
     </div>
 
     <script>
-        window.addEventListener("load", function() {
+        // Kisi bhi event ka wait nahi karna, fauri execute hoga code!
+        (function() {
             let gameState = 1;
             const targetArea = document.getElementById('gameTargetArea');
             const nicknames = ["khross", "bawli", "Cute 🥰 sa bcha", "Masom si jaan 🙃", "Pyari si shzadi", "Mera Pyara bcha"];
@@ -377,8 +378,10 @@ Transition: opacity 0.3s ease;
 
             function playPopSound() {
                 const popSound = document.getElementById('popSound');
-                popSound.currentTime = 0;
-                popSound.play().catch(e => console.log('Audio Triggered'));
+                if(popSound) {
+                    popSound.currentTime = 0;
+                    popSound.play().catch(e => console.log('Audio load state handled'));
+                }
             }
 
             function createPopText(text, isWelcome = false) {
@@ -396,7 +399,6 @@ Transition: opacity 0.3s ease;
             }
 
             function spawnGameBalloon() {
-                // Pehle agar koi balloon mojood hai to hatayein taake overlap na ho
                 const oldBalloon = targetArea.querySelector('.game-balloon');
                 if(oldBalloon) oldBalloon.remove();
 
@@ -454,10 +456,16 @@ Transition: opacity 0.3s ease;
                     playPopSound();
                     heart.remove();
                     triggerOngoingFlowerStorm();
-                    document.getElementById('bgMusic').play().catch(e => console.log("Music Triggered"));
+                    
+                    const bgMusic = document.getElementById('bgMusic');
+                    if(bgMusic) bgMusic.play().catch(err => console.log("Audio skipped generic autoplay block"));
+                    
                     setTimeout(() => {
-                        document.getElementById('introGameOverlay').style.style.display = 'none';
-                        document.getElementById('introGameOverlay').remove(); // Dom se permanently remove taake clicks block na hon
+                        const overlay = document.getElementById('introGameOverlay');
+                        if(overlay) {
+                            overlay.style.display = 'none';
+                            overlay.remove(); 
+                        }
                         document.getElementById('mainCard').style.display = 'block';
                     }, 800);
                 };
@@ -468,6 +476,7 @@ Transition: opacity 0.3s ease;
                 const container = document.getElementById('petalsContainer');
                 const hearts = ["❤️", "💖", "🥰", "🌸", "🌹"];
                 setInterval(() => {
+                    if(!container) return;
                     const petal = document.createElement('div');
                     petal.classList.add('petal');
                     const size = Math.random() * 10 + 12;
@@ -476,8 +485,4 @@ Transition: opacity 0.3s ease;
                     petal.style.left = Math.random() * 100 + 'vw';
                     petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
                     container.appendChild(petal);
-                    setTimeout(() => { petal.remove(); }, 8000);
-
-                    const hParticle = document.createElement('div');
-                    hParticle.classList.add('heart-particle');
-                    hParticle.innerText = hearts[Math.floo
+                    setTimeout(()
