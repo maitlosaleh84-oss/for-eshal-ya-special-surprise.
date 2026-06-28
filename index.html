@@ -27,41 +27,43 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #1a0b2e, #05020a);
             z-index: 20000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* Large Central Target Area for Game Balloons */
+        #gameTargetArea {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
         .game-balloon {
             position: absolute;
-            width: 100px;
-            height: 125px;
+            width: 105px;
+            height: 130px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
-            box-shadow: inset -6px -10px 20px rgba(0,0,0,0.5), 0 10px 25px rgba(255, 65, 108, 0.3);
-            animation: gentleFloat 3s ease-in-out infinite alternate;
+            box-shadow: inset -6px -10px 20px rgba(0,0,0,0.5), 0 10px 25px rgba(255, 65, 108, 0.4);
+            animation: gentleFloat 2.5s ease-in-out infinite alternate;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 16px;
+            color: #fff;
+            z-index: 20500;
         }
         .game-balloon::before {
-            content: ""; position: absolute; bottom: -7px; left: 46px;
+            content: ""; position: absolute; bottom: -7px; left: 48px;
             border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid rgba(255,255,255,0.7);
         }
 
         @keyframes gentleFloat {
             0% { transform: translateY(0) scale(1); }
-            10% { transform: scale(1.05); }
-            100% { transform: translateY(-20px) scale(1); }
+            100% { transform: translateY(-15px) scale(1.03); }
         }
 
-        /* Pop Blast Big Text Effect */
         .pop-text-effect {
             position: absolute;
-            font-size: 130px;
+            font-size: 110px;
             font-weight: 700;
             color: #4da6ff;
             text-shadow: 0 0 40px rgba(77, 166, 255, 0.9), 0 0 15px rgba(255,255,255,0.6);
@@ -76,23 +78,21 @@
             100% { transform: scale(0.8) translateY(-50px); opacity: 0; }
         }
 
-        /* Big Floating Heart */
         .big-floating-heart {
             position: absolute;
-            font-size: 120px;
+            font-size: 110px;
             cursor: pointer;
             z-index: 20500;
-            animation: heartRiseUp 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: heartRiseUp 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             filter: drop-shadow(0 10px 20px rgba(255, 65, 108, 0.5));
         }
         @keyframes heartRiseUp {
             0% { bottom: -150px; transform: scale(0.5) rotate(0deg); opacity: 0; }
             20% { opacity: 1; transform: scale(1.2); }
-            50% { transform: scale(1) rotate(-10deg); }
-            100% { bottom: 45%; transform: scale(1.1) rotate(10deg); }
+            100% { bottom: 42%; transform: scale(1.1) rotate(5deg); }
         }
 
-        /* --- MAIN BACKGROUND FLOWERS & BALOONS --- */
+        /* --- MAIN BACKGROUND FLOWERS & BALLOONS --- */
         .petals-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -151,13 +151,45 @@
             100% { transform: translateY(-115vh) scale(1) translateX(-10px); opacity: 0; }
         }
 
+        /* Step 3 Target Game Area for Nickname Balloons */
+        #step3GameContainer {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 20px;
+            border: 1px dashed rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+        .nickname-balloon {
+            position: absolute;
+            width: 85px; height: 105px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            cursor: pointer;
+            box-shadow: inset -4px -8px 15px rgba(0,0,0,0.5), 0 8px 20px rgba(255, 65, 108, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            animation: gentleFloat 2s ease-in-out infinite alternate;
+        }
+        .nickname-balloon::before {
+            content: ""; position: absolute; bottom: -6px; left: 39px;
+            border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 6px solid rgba(255,255,255,0.7);
+        }
+
         .love-note {
             position: absolute;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #fff;
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 25px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             pointer-events: none;
@@ -184,7 +216,7 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             z-index: 10;
             position: relative;
-            display: none; /* Hidden until game ends */
+            display: none; 
         }
         .step { display: none; }
         .step.active { display: block; }
@@ -202,7 +234,10 @@
             box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
             transition: transform 0.2s;
         }
-        .btn:active { transform: scale(0.96); }
+        .btn:disabled {
+            background: #444; color: #888; box-shadow: none; cursor: not-allowed;
+        }
+        .btn:active:not(:disabled) { transform: scale(0.96); }
 
         /* CAKE DISPLAY SETTINGS */
         .real-cake-wrapper {
@@ -251,7 +286,7 @@
             }
         }
 
-        h2 { font-size: 26px; color: #ff416c; margin-bottom: 12px; font-weight: 700; }
+        h2 { font-size: 25px; color: #ff416c; margin-bottom: 12px; font-weight: 700; }
         p { font-size: 15px; line-height: 1.7; color: #f0f0f0; }
         .wishes-heading { font-family: 'Great Vibes', cursive; font-size: 42px; color: #ff4b2b; text-shadow: 0 0 10px rgba(255,75,43,0.3); }
     </style>
@@ -274,13 +309,12 @@
 
     <!-- --- INTRO BALLOON GAME SCREEN --- -->
     <div id="introGameOverlay">
-        <!-- Main dynamic target space where elements show up -->
-        <div id="gameTargetArea" style="position: relative; width: 100%; height: 100%;"></div>
+        <div id="gameTargetArea"></div>
     </div>
 
     <!-- MAIN CARD CONTENT -->
     <div class="card" id="mainCard">
-        <!-- Step 2: Birthday Note Layout -->
+        <!-- Step 2: Welcome Intro Note Layout -->
         <div id="step2" class="step active">
             <h2>To My Sweetest... 🥰</h2>
             <p style="font-style: italic; color: #ff8a80; font-size: 16px; background: rgba(255,255,255,0.02); padding: 18px; border-radius: 16px; border-left: 4px solid #ff416c; margin-bottom: 15px;">
@@ -290,10 +324,29 @@
             <button class="btn" onclick="nextStep(3)">Tap Next ➔</button>
         </div>
 
-        <!-- Step 3: Cake Section -->
+        <!-- Step 3: NEW INTERACTIVE NICKNAME BALLOONS STEP -->
         <div id="step3" class="step">
-            <h2>Virtual Cake Cutting! 🎂</h2>
-            <p>Chalein, ab mil kar aapka birthday cake cut karte hain, <span style="color:#ff4b2b; font-weight:600;">Mera Bacha</span>! 🕯️</p>
+            <h2>Pop the Balloons! 🎈</h2>
+            <p>Cake par jaane se pehle, in gubbaron ko aik aik karke phorhein! App ke liye kuch naam hain:</p>
+            <div id="step3GameContainer"></div>
+            <button class="btn" id="step3NextBtn" disabled onclick="nextStep(4)">Proceed ➔</button>
+        </div>
+
+        <!-- Step 4: Grand Happy Birthday Wishes & Dua -->
+        <div id="step4" class="step">
+            <h2 class="wishes-heading">Happy Birthday Eshal! 💖</h2>
+            <p style="font-style: italic; color: #ffcd38; font-size: 15px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin: 15px 0; line-height: 1.6; border-top: 1px solid rgba(255,205,56,0.2); border-bottom: 1px solid rgba(255,205,56,0.2);">
+                "Dua hai ke aapki zindagi ka har lamha muskurahat se bhara ho. Aap jo bhi chaho, Allah aapko us se behtar se nawaaze."
+            </p>
+            <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
+            <p style="font-size: 18px; color: #ff416c; font-weight: 700; margin-top: 15px;">Happy Birthday, Mera Bacha! 🥳</p>
+            <button class="btn" onclick="goToCakeCut()">Let's Cut the Cake 🎂</button>
+        </div>
+
+        <!-- Step 5: Final Real Cake Cutting -->
+        <div id="step5" class="step">
+            <h2>The Real Cake Cutting! 🍰</h2>
+            <p>Chalein, ab mil kar aapka real birthday cake cut karte hain, <span style="color:#ff4b2b; font-weight:600;">Mera Bacha</span>! 🕯️</p>
             
             <div class="real-cake-wrapper" id="cakeWrapper">
                 <img src="1000046661.jpg" alt="Happy Birthday Cake" class="cake-img">
@@ -302,26 +355,13 @@
 
             <button class="btn" onclick="performRealCakeCut()">Cut the Cake 🔪</button>
         </div>
-
-        <!-- Step 4: Final Screen -->
-        <div id="step4" class="step">
-            <h2 class="wishes-heading">Happy Birthday Eshal! 💖</h2>
-            <p>Allah aapko dunya ki har khushi de, aap hamesha muskurate rahein aur aapki har dua qabool ho. 🤲🌟</p>
-            <p style="font-size: 18px; color: #ff416c; font-weight: 700; margin-top: 15px;">Happy Birthday, Mera Bacha! 🥳</p>
-            <p style="font-size: 13px; color: #ff8a80; margin-top: 15px; background: rgba(255,255,255,0.04); padding: 8px; border-radius: 8px;">
-                🎈 Niche se aate huay gubbaron ko touch karke phorhein! Aapke liye messages hain!
-            </p>
-        </div>
     </div>
 
     <script>
         let gameState = 1;
         const targetArea = document.getElementById('gameTargetArea');
-
-        // Start creating first balloon immediately on load
-        window.onload = function() {
-            spawnGameBalloon();
-        };
+        const nicknames = ["khross", "bawli", "Cute 🥰 sa bcha", "Masom si jaan 🙃", "Pyari si shzadi", "Mera Pyara bcha"];
+        let poppedNicknamesCount = 0;
 
         function playPopSound() {
             const popSound = document.getElementById('popSound');
@@ -334,41 +374,40 @@
             txt.classList.add('pop-text-effect');
             txt.innerText = text;
             if (isWelcome) {
-                txt.style.fontSize = "38px";
+                txt.style.fontSize = "32px";
                 txt.style.color = "#ff416c";
-                txt.style.width = "85%";
+                txt.style.width = "90%;";
                 txt.style.textAlign = "center";
-                txt.style.textShadow = "0 0 20px rgba(255,65,108,0.7)";
+                txt.style.textShadow = "0 0 25px rgba(255,65,108,0.8)";
             }
             txt.style.left = "50%";
             txt.style.top = "45%";
             txt.style.transform = "translate(-50%, -50%)";
             targetArea.appendChild(txt);
-            setTimeout(() => txt.remove(), 1200);
+            setTimeout(() => txt.remove(), 1300);
         }
 
         function spawnGameBalloon() {
             const balloon = document.createElement('div');
             balloon.classList.add('game-balloon');
-            
-            // Randomly position in the middle areas
-            balloon.style.left = (Math.random() * 40 + 30) + "%";
-            balloon.style.top = (Math.random() * 30 + 35) + "%";
+            balloon.style.left = "calc(50% - 52px)";
+            balloon.style.top = "40%";
             
             if (gameState === 1) {
-                balloon.style.background = "linear-gradient(135deg, #4da6ff, #0044cc)";
+                balloon.style.background = "radial-gradient(circle at 30% 30%, #4da6ff, #0033aa)";
                 balloon.innerText = "🎈 Tap";
             } else if (gameState === 2) {
-                balloon.style.background = "linear-gradient(135deg, #ffcd38, #f39c12)";
+                balloon.style.background = "radial-gradient(circle at 30% 30%, #ffcd38, #c07d00)";
                 balloon.innerText = "🎈 Tap";
             } else if (gameState === 3) {
-                balloon.style.background = "linear-gradient(135deg, #2ecc71, #27ae60)";
+                balloon.style.background = "radial-gradient(circle at 30% 30%, #2ecc71, #1e7e34)";
                 balloon.innerText = "🎈 Tap";
             } else if (gameState === 4) {
-                balloon.style.background = "linear-gradient(135deg, #e74c3c, #962d22)";
+                balloon.style.background = "radial-gradient(circle at 30% 30%, #e74c3c, #962d22)";
                 balloon.innerText = "🎁 Surprise";
                 balloon.style.width = "120px";
                 balloon.style.height = "145px";
+                balloon.style.left = "calc(50% - 60px)";
             }
 
             balloon.onclick = function() {
@@ -378,21 +417,20 @@
                 if (gameState === 1) {
                     createPopText("3");
                     gameState = 2;
-                    setTimeout(spawnGameBalloon, 800);
+                    setTimeout(spawnGameBalloon, 700);
                 } else if (gameState === 2) {
                     createPopText("2");
                     gameState = 3;
-                    setTimeout(spawnGameBalloon, 800);
+                    setTimeout(spawnGameBalloon, 700);
                 } else if (gameState === 3) {
                     createPopText("1");
                     gameState = 4;
-                    setTimeout(spawnGameBalloon, 800);
+                    setTimeout(spawnGameBalloon, 700);
                 } else if (gameState === 4) {
-                    createPopText("Welcome Khubsoorat Insan ❤️", true);
-                    setTimeout(spawnBigHeart, 1500);
+                    createPopText("Welcome Khross Insan ❤️", true);
+                    setTimeout(spawnBigHeart, 1400);
                 }
             };
-
             targetArea.appendChild(balloon);
         }
 
@@ -400,36 +438,25 @@
             const heart = document.createElement('div');
             heart.classList.add('big-floating-heart');
             heart.innerHTML = "💗";
-            heart.style.left = "calc(50% - 60px)";
+            heart.style.left = "calc(50% - 55px)";
             
             heart.onclick = function() {
                 playPopSound();
                 heart.remove();
-                
-                // BLAST PACK EFFECTS - Trigger ongoing flower and heart storm!
                 triggerOngoingFlowerStorm();
-                
-                // Play Background Music
-                document.getElementById('bgMusic').play().catch(e => console.log("Music Playing"));
-
-                // Fade out overlay game screen and show beautiful card
+                document.getElementById('bgMusic').play().catch(e => console.log("Music Triggered"));
                 setTimeout(() => {
-                    document.getElementById('introGameOverlay').style.fadeOut = "slow";
                     document.getElementById('introGameOverlay').style.display = 'none';
                     document.getElementById('mainCard').style.display = 'block';
-                }, 1000);
+                }, 900);
             };
-
             targetArea.appendChild(heart);
         }
 
-        // Beautiful ongoing falling storm (Flowers & Hearts)
         function triggerOngoingFlowerStorm() {
             const container = document.getElementById('petalsContainer');
             const hearts = ["❤️", "💖", "🥰", "🌸", "🌹"];
-            
             setInterval(() => {
-                // 1. Spawn Real Flower Petals
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
                 const size = Math.random() * 10 + 12;
@@ -440,7 +467,6 @@
                 container.appendChild(petal);
                 setTimeout(() => { petal.remove(); }, 8000);
 
-                // 2. Spawn Shiny Floating Hearts
                 const hParticle = document.createElement('div');
                 hParticle.classList.add('heart-particle');
                 hParticle.innerText = hearts[Math.floor(Math.random() * hearts.length)];
@@ -451,39 +477,11 @@
             }, 180);
         }
 
-        function nextStep(currentStep) {
-            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-            document.getElementById('step' + currentStep).classList.add('active');
-            if (currentStep === 4) startInteractiveBalloons();
-        }
+        // --- STEP 3: INITIALIZE NICKNAME BALLOONS ---
+        function generateNicknameBalloons() {
+            const gameContainer = document.getElementById('step3GameContainer');
+            gameContainer.innerHTML = ''; 
+            poppedNicknamesCount = 0;
+            document.getElementById('step3NextBtn').disabled = true;
 
-        function performRealCakeCut() {
-            document.getElementById('cakeWrapper').classList.add('split');
-            document.getElementById("bgMusic").pause();
-            
-            var bdayAudio = document.getElementById("birthdayMusic");
-            bdayAudio.play().catch(e => console.log(e));
-
-            setTimeout(() => { nextStep(4); }, 1500);
-        }
-
-        function startInteractiveBalloons() {
-            const zone = document.getElementById('balloonZone');
-            const loveNotesData = [
-                "You are Special ✨", "Mera Bacha 🥰", "Hamesha Muskurao 🌸", 
-                "Stay Blessed 🤲", "My Favorite ❤️", "Be Happy Always 💖", 
-                "Sweetest Person 🌹", "Best Day Ever 🎉"
-            ];
-            const colors = ['#ff416c', '#ff0844', '#7b2ff7', '#ff758c', '#e60067'];
-            
-            setInterval(() => {
-                const balloon = document.createElement('div');
-                balloon.classList.add('pop-balloon');
-                balloon.style.background = `radial-gradient(circle at 30% 30%, ${colors[Math.floor(Math.random() * colors.length)]}, #100208)`;
-                balloon.style.left = Math.random() * 80 + 10 + 'vw';
-                balloon.style.animationDuration = (Math.random() * 3 + 10) + 's';
-                
-                balloon.addEventListener('click', function(e) {
-                    playPopSound();
-                    
-            
+            const colors = ['#ff416c', '#7b2ff7', '#ffcd38', '#2ecc71', '#e74c3c', '#00a
