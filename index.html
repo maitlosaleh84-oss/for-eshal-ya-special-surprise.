@@ -20,12 +20,12 @@
             align-items: center;
         }
 
-        /* --- SINGLE INTRO OVERLAY --- */
+        /* --- STABLE INTRO OVERLAY --- */
         #introGameOverlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(135deg, #1a0b2e, #05020a);
-            z-index: 99999;
+            z-index: 999999;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,17 +33,17 @@
 
         .game-balloon {
             position: relative;
-            width: 120px;
-            height: 145px;
+            width: 125px;
+            height: 150px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer;
-            box-shadow: inset -6px -10px 20px rgba(0,0,0,0.5), 0 10px 25px rgba(255, 65, 108, 0.4);
-            animation: gentleFloat 2.5s ease-in-out infinite alternate;
+            box-shadow: inset -6px -10px 20px rgba(0,0,0,0.5), 0 10px 25px rgba(255, 65, 108, 0.45);
+            animation: gentleFloat 2s ease-in-out infinite alternate;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
             color: #fff;
             user-select: none;
             -webkit-user-select: none;
@@ -55,18 +55,18 @@
 
         @keyframes gentleFloat {
             0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-15px) scale(1.05); }
+            100% { transform: translateY(-12px) scale(1.03); }
         }
 
         .pop-text-effect {
             position: absolute;
-            font-size: 70px;
+            font-size: 75px;
             font-weight: 700;
             color: #4da6ff;
             text-shadow: 0 0 30px rgba(77, 166, 255, 0.9), 0 0 15px rgba(255,255,255,0.6);
-            animation: textBlast 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: textBlast 1.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             pointer-events: none;
-            z-index: 100000;
+            z-index: 1000000;
             width: 100%;
             text-align: center;
         }
@@ -79,10 +79,10 @@
 
         .big-floating-heart {
             position: relative;
-            font-size: 110px;
+            font-size: 115px;
             cursor: pointer;
-            animation: heartPulse 1.5s ease-in-out infinite alternate;
-            filter: drop-shadow(0 10px 20px rgba(255, 65, 108, 0.5));
+            animation: heartPulse 1.3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 10px 25px rgba(255, 65, 108, 0.6));
             user-select: none;
             -webkit-user-select: none;
         }
@@ -459,4 +459,4 @@
                         balloon.style.animationDuration = (Math.random() * 3 + 8) + 's';
                         balloon.onclick = function() { balloon.remove(); };
                         if(zone) zone.appendChild(balloon);
-   
+  
